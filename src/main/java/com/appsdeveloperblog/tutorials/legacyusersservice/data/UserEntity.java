@@ -2,69 +2,69 @@ package com.appsdeveloperblog.tutorials.legacyusersservice.data;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class UserEntity implements Serializable {
-    private static final long serialVersionUID = 5313493413859894403L;
- 
-    public UserEntity() {}
-    
-    public UserEntity(long id, String userId, String firstName, String lastName, String email, String encryptedPassword,
-			String emailVerificationToken, Boolean emailVerificationStatus) {
+public class UserEntity {
+	public UserEntity() {
+
+	}
+	public UserEntity(Long id, String email,  String firstName, String lastName, String password,String redirectUri) {
 		this.id = id;
-		this.userId = userId;
+		this.email = email;
+		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
-		this.encryptedPassword = encryptedPassword;
-		this.emailVerificationToken = emailVerificationToken;
-		this.emailVerificationStatus = emailVerificationStatus;
+		this.redirectUri = redirectUri;
 	}
 
 	@Id
-    @GeneratedValue
-    private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private String userId;
+	@Column(nullable = false, unique = true, length = 45)
+	private String email;
 
-    @Column(nullable = false, length = 50)
-    private String firstName;
+	@Column(nullable = false, length = 64)
+	private String password;
 
-    @Column(nullable = false, length = 50)
-    private String lastName;
+	@Column(name = "first_name", nullable = false, length = 20)
+	private String firstName;
 
-    @Column(nullable = false, length = 120)
-    private String email;
+	@Column(name = "last_name", nullable = false, length = 20)
+	private String lastName;
 
-    @Column(nullable = false)
-    private String encryptedPassword;
 
-    private String emailVerificationToken;
+	//This parameter can be null. if it is null, page will go to register_success.html
+	@Column(name = "redirect_uri", nullable = true, length =255)
+	private String redirectUri;
 
-    @Column(nullable = false)
-    private Boolean emailVerificationStatus = false;
 
-	public long getId() {
+
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getFirstName() {
@@ -83,43 +83,17 @@ public class UserEntity implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getRedirectUri() {
+		return redirectUri;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setRedirectUri(String redirectUri) {
+		this.redirectUri = redirectUri;
 	}
 
 	public String getEncryptedPassword() {
-		return encryptedPassword;
+		return password;
 	}
 
-	public void setEncryptedPassword(String encryptedPassword) {
-		this.encryptedPassword = encryptedPassword;
-	}
-
-	public String getEmailVerificationToken() {
-		return emailVerificationToken;
-	}
-
-	public void setEmailVerificationToken(String emailVerificationToken) {
-		this.emailVerificationToken = emailVerificationToken;
-	}
-
-	public Boolean getEmailVerificationStatus() {
-		return emailVerificationStatus;
-	}
-
-	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
-		this.emailVerificationStatus = emailVerificationStatus;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-    
- 
-    
 
 }

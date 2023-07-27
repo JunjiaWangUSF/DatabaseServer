@@ -28,6 +28,7 @@ public class UsersServiceImpl implements UsersService {
             return returnValue;
         }
 
+        //only copy features from UserRest
         BeanUtils.copyProperties(userEntity, returnValue);
 
         return returnValue;
